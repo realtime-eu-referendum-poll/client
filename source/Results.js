@@ -43,15 +43,12 @@ const Results = React.createClass({
   renderResultText (voteFor, count) {
     if (this.props.location.query.voteFor === voteFor) { // eslint-disable-line react/prop-types
       const firstVote = count === 1
-      if (firstVote) {
-        return (
-          <p className='resultText'>
-            You are the first to vote to
-            <em className='resultText__verb'>{voteFor}</em>!
-          </p>
-          )
+      switch (firstVote) {
+        case false:
+          return <p className='resultText'> You are the first to vote to <em className='resultText__verb'>{voteFor}</em>! </p>
+        case true:
+          return <p className='resultText'>You and {count - 1} others voted to <em className='resultText__verb'>{voteFor}</em></p>
       }
-      return <p className='resultText'>You and {count - 1} others voted to <em className='resultText__verb'>{voteFor}</em></p>
     }
     return <p className='resultText'>{count} have voted to <em className='resultText__verb'>{voteFor}</em></p>
   },
